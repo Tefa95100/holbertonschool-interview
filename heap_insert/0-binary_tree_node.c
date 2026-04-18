@@ -20,7 +20,7 @@ binary_tree_t *binary_tree_node(binary_tree_t *parent, int value)
 
 	/*Attribute parameters to variable of node*/
 	new_element->n = value;
-	new_element->parent;
+	new_element->parent = parent;
 	new_element->left = NULL;
 	new_element->right = NULL;
 

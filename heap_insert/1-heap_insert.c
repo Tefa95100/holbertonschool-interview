@@ -19,7 +19,7 @@ heap_t *get_parent(heap_t *root, size_t index)
 
 	bit >>= 2;
 
-	while (bit > 1)
+	while (bit >= 1)
 	{
 		if (index & bit)
 			root = root->right;

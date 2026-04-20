@@ -10,15 +10,26 @@ size_t binary_tree_size(const binary_tree_t *tree)
 	return (1 + binary_tree_size(tree->left) + binary_tree_size(tree->right));
 }
 
-heap_t *get_parent(heap_t *root, size_t index, size_t bit)
+heap_t *get_parent(heap_t *root, size_t index)
 {
-	if (bit == 1)
-		return (root);
+	size_t bit = 1;
 
-	if (index & bit)
-		return (get_parent(root->right, index, bit >> 1));
-	else
-		return (get_parent(root->left, index, bit >> 1));
+	while (bit <= index)
+		bit <<= 1;
+
+	bit >>= 2;
+
+	while (bit > 1)
+	{
+		if (index & bit)
+			root = root->right;
+		else
+			root = root->left;
+
+		bit >>= 1;
+	}
+
+	return (root);
 }
 
 void heapify_up(heap_t *node)
@@ -54,7 +65,7 @@ heap_t *heap_insert(heap_t **root, int value)
 		bit <<= 1;
 	bit >>= 2;
 
-	parent = get_parent(*root, size, bit);
+	parent = get_parent(*root, size);
 
 	new_node = binary_tree_node(parent, value);
 	if (!new_node)

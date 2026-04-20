@@ -46,9 +46,9 @@ heap_t *heap_insert(heap_t **root, int value)
 		return (*root = binary_tree_node(NULL, value));
 
 	size = binary_tree_size(*root);
-	size++; /* index du nouveau noeud */
+	size++; /*index of new node*/
 
-	/* trouver le bit de poids fort */
+	/*Find the most significant bit*/
 	bit = 1;
 	while (bit <= size)
 		bit <<= 1;
@@ -60,10 +60,10 @@ heap_t *heap_insert(heap_t **root, int value)
 	if (!new_node)
 		return (NULL);
 
-	if (size & 1)
-		parent->right = new_node;
-	else
+	if (!parent->left)
 		parent->left = new_node;
+	else
+		parent->right = new_node;
 
 	heapify_up(new_node);
 
